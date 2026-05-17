@@ -1,6 +1,7 @@
 #pragma once
 // #include "Lexer.h"
 #include "Tokens.h"
+#include "TablaSimbolos.h"
 // #include <iostream>
 #include <vector>
 // creacion de la estructura de parsers
@@ -9,7 +10,8 @@ using namespace std;
 // aqui se declara
 //  structura nodo del ast
 //
-struct Nodo {
+struct Nodo
+{
   string tipo;
   string valor;
   vector<Nodo *> hijos;
@@ -18,7 +20,8 @@ struct Nodo {
   // constructor de la struct
   Nodo(string t, string v, Nodo *i = nullptr, Nodo *d = nullptr)
       : tipo(t), valor(v), izq(i), der(d) {}
-  ~Nodo() {
+  ~Nodo()
+  {
     delete izq;
     delete der;
     for (Nodo *hijo : hijos)
@@ -26,13 +29,15 @@ struct Nodo {
   }
 };
 
-class Parser {
+class Parser
+{
 public:
   // void printTree();
   vector<string> errores;
   Parser(vector<Token> toks);
   Nodo *ParseAsignacion();
   Nodo *parsearPrograma();
+  TablaSimbolos tablaSimbolos;
 
 private:
   Nodo *parsearImprimir();
